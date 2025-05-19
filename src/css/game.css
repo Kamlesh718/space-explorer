@@ -1,0 +1,181 @@
+/* Game Over Card */
+.game-over-card {
+  width: 500px; /* Set your desired width here */
+  max-width: 90vw; /* Keep it responsive */
+  background: linear-gradient(135deg, #222, #111);
+  border-radius: 20px;
+  border: 2px solid #ff5555;
+  padding: 50px 70px;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 20px 60px rgba(255, 85, 85, 0.15), 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.game-over-card h1 {
+  font-size: 3em;
+  color: #ff5555;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 20px rgba(255, 85, 85, 0.6);
+}
+
+.game-over-card p {
+  font-size: 1.2em;
+  color: #ccc;
+  margin: 0 0 20px 0;
+  text-shadow: 0 2px 8px rgba(255, 85, 85, 0.3);
+}
+
+.game-over-card button {
+  background: #ff5555;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 10px 30px rgba(255, 85, 85, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-over-card button:hover {
+  background: #ff7777;
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 85, 85, 0.7), 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Start Overlay */
+.start-overlay {
+  width: 80vw;
+  max-width: 500px;
+  background: linear-gradient(135deg, #222, #111);
+  border-radius: 20px;
+  border: 2px solid #55ff55;
+  padding: 40px 60px;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(85, 255, 85, 0.15), 0 5px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-overlay h1 {
+  font-size: 3em;
+  color: #55ff55;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 20px rgba(85, 255, 85, 0.6);
+}
+
+.start-overlay p {
+  font-size: 1.2em;
+  color: #ddd;
+  margin: 20px 0;
+  text-shadow: 0 2px 8px rgba(85, 255, 85, 0.3);
+}
+
+.start-overlay button {
+  background: #55ff55;
+  color: #111;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 10px 30px rgba(85, 255, 85, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start-overlay button:hover {
+  background: #77ff77;
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(85, 255, 85, 0.7), 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.spaceship-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.spaceship-selection h2 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.spaceship-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.spaceship-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.spaceship-button:hover {
+  transform: scale(1.1);
+}
+
+.spaceship-button.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Pause button */
+.overlay-pause-button {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pause-overlay {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.pause-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mute-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
