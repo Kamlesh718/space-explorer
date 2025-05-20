@@ -66,3 +66,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+#static-description {
+  text-align: center;
+  color: white;
+  background: black;
+  padding: 2rem;
+}
+
+body.loaded #static-description {
+  display: none;
+}

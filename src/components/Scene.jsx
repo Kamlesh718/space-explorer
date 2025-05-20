@@ -5,6 +5,9 @@ import SpaceshipModel from "./SpaceshipModel";
 import Planet from "./Planet";
 import MovingStars from "./MovingStars";
 import "../css/game.css";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import Leaderboard from "./LeaderBoard";
 
 const SPACESHIPS = [
   { id: 1, name: "Falcon", modelPath: "/models/spaceships/spaceship1.glb" },
@@ -17,25 +20,44 @@ const SPACESHIPS = [
 ];
 
 export default function Scene() {
-  const [gameOver, setGameOver] = useState(false);
+  // --------------------------
+  // 🔵 State
+  // --------------------------
+  const username = localStorage.getItem("username");
+  const avatarUrl = localStorage.getItem("avatarUrl");
+
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [selectedShip, setSelectedShip] = useState(
     localStorage.getItem("selectedShip") || SPACESHIPS[0].modelPath
   );
-
-  function handleSpaceshipSelect(modelPath) {
-    setSelectedShip(modelPath);
-    localStorage.setItem("selectedShip", modelPath);
-  }
-
-  useEffect(() => {
-    const savedHighScore = parseInt(localStorage.getItem("highScore")) || 0;
-    setHighScore(savedHighScore);
-  }, []);
+  const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
   const gameOverSoundRef = useRef();
+
+  // --------------------------
+  // 🔧 Handlers / Functions
+  // --------------------------
+  const handleGameStart = () => setGameStarted(true);
+
+  const handleGameOver = () => {
+    setGameOver(true);
+    playGameoverSound();
+  };
+
+  const handleSpaceshipSelect = (modelPath) => {
+    setSelectedShip(modelPath);
+    localStorage.setItem("selectedShip", modelPath);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("avatarUrl");
+    localStorage.removeItem("password");
+    window.location.reload();
+  };
 
   const playGameoverSound = () => {
     if (gameOverSoundRef.current && !gameOverSoundRef.current.isPlaying) {
@@ -43,47 +65,68 @@ export default function Scene() {
     }
   };
 
+  const updateHighScore = async () => {
+    const userRef = doc(db, "players", username);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const currentHigh = userSnap.data().highScore || 0;
+      if (score > currentHigh) {
+        await updateDoc(userRef, { highScore: score });
+        console.log("High score updated!");
+      } else {
+        console.log("Score not higher than current high score");
+      }
+    } else {
+      console.warn("User not found in database");
+    }
+  };
+
+  const getHighScore = async (username) => {
+    try {
+      const userRef = doc(db, "players", username);
+      const userSnap = await getDoc(userRef);
+      return userSnap.exists() ? userSnap.data().highScore || 0 : 0;
+    } catch (error) {
+      console.error("Error fetching high score:", error);
+      return 0;
+    }
+  };
+
+  // --------------------------
+  // 🌀 Effects
+  // --------------------------
+  useEffect(() => {
+    const fetchScore = async () => {
+      const score = await getHighScore(username);
+      setHighScore(score);
+    };
+    if (username) fetchScore();
+  }, [username]);
+
   useEffect(() => {
     if (gameOverSoundRef.current) {
       gameOverSoundRef.current.setVolume(1);
     }
-  });
+  }, []);
 
-  useEffect(() => {
-    if (score > highScore) {
-      setHighScore(score);
-      localStorage.setItem("highScore", score.toString());
-    }
-  }, [score, highScore]);
-
-  const handleGameOver = () => {
-    setGameOver(true);
-    playGameoverSound();
-  };
-
-  const handleGameStart = () => {
-    setGameStarted(true);
-  };
-
+  // --------------------------
+  // 🎮 Render
+  // --------------------------
   return (
     <Canvas
       camera={{ position: [0, 10, 20], fov: 75 }}
       style={{ width: "100vw", height: "100vh" }}
       gl={{ antialias: true }}
-      onCreated={({ gl }) => {
-        gl.setClearColor("#000000"); // pure black background
-      }}
+      onCreated={({ gl }) => gl.setClearColor("#000000")}
     >
-      {/* Basic Lighting */}
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} intensity={0.8} />
 
-      {/* Moving Stars */}
       <Suspense fallback={null}>
         <MovingStars />
       </Suspense>
 
-      {/* Spaceship Model */}
       {!gameOver && gameStarted && (
         <SpaceshipModel
           onGameOver={handleGameOver}
@@ -91,25 +134,54 @@ export default function Scene() {
           setScore={setScore}
           speed={0.3}
           modelPath={selectedShip}
+          updateHighScore={updateHighScore}
         />
       )}
 
       {/* Start Overlay */}
       {!gameStarted && (
         <Html center>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+          <button
+            onClick={() => {
+              setShowLeaderBoard((LB) => !LB);
+            }}
+            className="leaderboard-button"
+          >
+            Leaderboard
+          </button>
+
           <div className="start-overlay">
             <h1>🚀 Space Explorer</h1>
             <p>Are you ready for an epic space adventure?</p>
-            <p>High Score : {highScore}</p>
+            <div className="avatar-username">
+              <img
+                src={avatarUrl}
+                alt={`${username} avatar`}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  marginRight: "15px",
+                  boxShadow: "0 0 5px #0ff",
+                }}
+              />
+              <p>
+                {username?.toUpperCase()} Your High Score : {highScore}
+              </p>
+            </div>
             <button onClick={handleGameStart}>Start Game</button>
           </div>
-          <div class="spaceship-selection">
+
+          <div className="spaceship-selection">
             <h2>Choose Your Spaceship</h2>
-            <div class="spaceship-buttons">
+            <div className="spaceship-buttons">
               {SPACESHIPS.map((ship) => (
                 <button
                   key={ship.id}
-                  class={`spaceship-button ${
+                  className={`spaceship-button ${
                     selectedShip === ship.modelPath ? "selected" : ""
                   }`}
                   onClick={() => handleSpaceshipSelect(ship.modelPath)}
@@ -133,16 +205,16 @@ export default function Scene() {
         </Html>
       )}
 
+      {/* Game Over Sound */}
       <PositionalAudio
         ref={gameOverSoundRef}
         url="/sound-effects/gameover.mp3"
         distance={10}
         loop={false}
       />
-
-      <Html topLeft></Html>
-
-      {/* <OrbitControls /> */}
+      {showLeaderBoard && (
+        <Leaderboard position="left" setShowLeaderBoard={setShowLeaderBoard} />
+      )}
     </Canvas>
   );
 }

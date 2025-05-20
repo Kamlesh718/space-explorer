@@ -58,6 +58,7 @@ function SpaceshipModel({
   speed = 0.5,
   obstacleSize = 1,
   modelPath,
+  updateHighScore,
 }) {
   const asteroidTextures = useLoader(THREE.TextureLoader, [
     "/textures/asteroid_texture1.jpg",
@@ -89,7 +90,7 @@ function SpaceshipModel({
     e.currentTarget.blur();
     if (bgSoundRef.current) {
       if (muted) {
-        bgSoundRef.current.setVolume(0.4); // Unmute
+        bgSoundRef.current.setVolume(2); // Unmute
         bgSoundRef.current.play(); // Ensure it resumes if paused
       } else {
         bgSoundRef.current.setVolume(0); // Mute
@@ -142,10 +143,10 @@ function SpaceshipModel({
   useEffect(() => {
     playBGSound();
     if (bgSoundRef.current) {
-      bgSoundRef.current.setVolume(0.4);
+      bgSoundRef.current.setVolume(2);
     }
     if (laserSoundRef.current) {
-      laserSoundRef.current.setVolume(0.5);
+      laserSoundRef.current.setVolume(1);
     }
 
     if (laughSoundRef.current) {
@@ -153,10 +154,10 @@ function SpaceshipModel({
     }
 
     if (hitSoundRef.current) {
-      hitSoundRef.current.setVolume(1);
+      hitSoundRef.current.setVolume(2);
     }
     if (asteroidExplosionSoundRef.current) {
-      asteroidExplosionSoundRef.current.setVolume(0.7);
+      asteroidExplosionSoundRef.current.setVolume(1.5);
     }
     if (spaceshipExplosionSoundRef.current) {
       spaceshipExplosionSoundRef.current.setVolume(0.2);
@@ -327,7 +328,8 @@ function SpaceshipModel({
               playHitSound();
               const newHealth = Math.max(h - 2, 0);
               if (newHealth <= 0) {
-                playSpaceshipExplosionSound();
+                // playSpaceshipExplosionSound();
+                updateHighScore();
                 onGameOver();
               }
               return newHealth;
@@ -439,10 +441,6 @@ function SpaceshipModel({
         loop={false}
       />
 
-      {/* Health Bar */}
-      <HealthBar health={health} />
-      <Score score={score} />
-
       {paused && (
         <Html center>
           <div onClick={() => setPaused(false)} className="pause-overlay">
@@ -453,24 +451,28 @@ function SpaceshipModel({
         </Html>
       )}
 
-      {!paused && (
-        <Html position={[-25, 13, 0]}>
-          <button onClick={() => setPaused(true)} className="pause-button">
-            <img src="/icons/pause.png" width="30" alt="Pause" />
-          </button>
-        </Html>
-      )}
-      {
-        <Html position={[-27, 10, 0]}>
-          <button onClick={toggleMute} className="mute-button">
-            <img
-              src={`${muted ? "/icons/mute.png" : "/icons/unmute.png"}`}
-              width="30"
-              alt="Mute-Unmute"
-            />
-          </button>
-        </Html>
-      }
+      <Html fullscreen>
+        <div className="menu">
+          <div className="menu-icons">
+            {!paused && (
+              <button onClick={() => setPaused(true)} className="pause-button">
+                <img src="/icons/pause.png" width="30" alt="Pause" />
+              </button>
+            )}
+
+            <button onClick={toggleMute} className="mute-button">
+              <img
+                src={`${muted ? "/icons/mute.png" : "/icons/unmute.png"}`}
+                width="30"
+                alt="Mute-Unmute"
+              />
+            </button>
+            <Score score={score} />
+          </div>
+          {/* Health Bar */}
+          <HealthBar health={health} />
+        </div>
+      </Html>
     </>
   );
 }
