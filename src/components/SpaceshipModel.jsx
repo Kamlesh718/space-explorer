@@ -326,7 +326,7 @@ function SpaceshipModel({
             // Reduce health
             setHealth((h) => {
               playHitSound();
-              const newHealth = Math.max(h - 2, 0);
+              const newHealth = Math.max(h - 3, 0);
               if (newHealth <= 0) {
                 // playSpaceshipExplosionSound();
                 updateHighScore();
@@ -356,7 +356,7 @@ function SpaceshipModel({
           }
 
           if (hitByBullet) {
-            setScore((prev) => prev + 0.5);
+            setScore((prev) => prev + 1);
 
             // Respawn obstacle with **new Vector3 instance**
             // When respawning obstacle:
