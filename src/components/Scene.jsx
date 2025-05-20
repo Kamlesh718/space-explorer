@@ -34,6 +34,15 @@ export default function Scene() {
     localStorage.getItem("selectedShip") || SPACESHIPS[0].modelPath
   );
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
+  const [gameLoading, setGameLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setGameLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const gameOverSoundRef = useRef();
 
@@ -127,16 +136,22 @@ export default function Scene() {
         <MovingStars />
       </Suspense>
 
-      {!gameOver && gameStarted && (
-        <SpaceshipModel
-          onGameOver={handleGameOver}
-          score={score}
-          setScore={setScore}
-          speed={0.3}
-          modelPath={selectedShip}
-          updateHighScore={updateHighScore}
-        />
-      )}
+      {!gameOver &&
+        gameStarted &&
+        (gameLoading ? (
+          <Html center>
+            <h2>Loading...</h2>
+          </Html>
+        ) : (
+          <SpaceshipModel
+            onGameOver={handleGameOver}
+            score={score}
+            setScore={setScore}
+            speed={0.3}
+            modelPath={selectedShip}
+            updateHighScore={updateHighScore}
+          />
+        ))}
 
       {/* Start Overlay */}
       {!gameStarted && (
