@@ -22,7 +22,7 @@ Fly through the stars, dodge obstacles, and challenge yourself to beat your high
 
 | Login | Game Start | In-Game | Pause | Game Over | Leaderboard |
 |-------|------------|---------|-------|-----------|-------------|
-| ![Login](./screenshots/login.png) | ![Start](./screenshots/start.png) | ![InGame](./screenshots/ingame.png) | ![Pause](./screenshots/pause.png) | ![GameOver](./screenshots/gameover.png) | ![Leaderboard](./screenshots/leaderboard.png) |
+| ![Login](./screenshots/login.png) | ![Start](./screenshots/start.png) | ![InGame](./screenshots/inGame.png) | ![Pause](./screenshots/pause.png) | ![GameOver](./screenshots/gameover.png) | ![Leaderboard](./screenshots/leaderboard.png) |
 
 
 ---
