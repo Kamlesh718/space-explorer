@@ -3,6 +3,9 @@
 An immersive 3D space adventure game built with **React**, **@react-three/fiber**, and **Firebase**.  
 Fly through the stars, dodge obstacles, and challenge yourself to beat your high score.
 
+🌟 Live Here:
+🔗 https://space-explorer-8c42e.web.app/ (Hosted on Firebase)
+
 
 ---
 
