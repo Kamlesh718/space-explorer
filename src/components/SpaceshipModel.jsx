@@ -136,8 +136,8 @@ function SpaceshipModel({
   const playAsteroidExplosionSound = () => playSound(asteroidExplosionSoundRef);
   const playHitSound = () => playSound(hitSoundRef);
   const playLaserSound = () => playSound(laserSoundRef);
-  const playSpaceshipExplosionSound = () =>
-    playSound(spaceshipExplosionSoundRef);
+  // const playSpaceshipExplosionSound = () =>
+  //   playSound(spaceshipExplosionSoundRef);
 
   // Initialize and set volume for all sounds once on mount
   useEffect(() => {

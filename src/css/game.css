@@ -180,6 +180,36 @@
   justify-content: center;
 }
 
+.score {
+  width: 120px;
+  color: white;
+  font-size: 1.5em;
+  font-family: "Inter", sans-serif;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 2px solid #fff;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .score {
+    width: 90px;
+    font-size: 1.2em;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .score {
+    width: 75px;
+    font-size: 1em;
+    padding: 6px 12px;
+  }
+}
+
 .menu {
   margin-top: 12px;
   margin-left: 12px;
@@ -268,4 +298,226 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Default: hidden */
+.wasd-container {
+  display: none;
+}
+
+/* Show only on tablets and smaller */
+@media screen and (max-width: 1024px) {
+  .wasd-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+}
+
+.wasd-bottom-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.wasd-button {
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.wasd-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* LANDSCAPE ORIENTATION */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background: black;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landscape-lock-overlay {
+  position: fixed;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 20px;
+}
+
+/* Responsive adjustments for tablets and smaller */
+@media (max-width: 1024px) {
+  .game-over-card,
+  .start-overlay {
+    width: 90vw !important;
+    padding: 30px 40px !important;
+  }
+
+  .game-over-card h1,
+  .start-overlay h1 {
+    font-size: 2.2em !important;
+  }
+
+  .game-over-card p,
+  .start-overlay p {
+    font-size: 1em !important;
+  }
+
+  .game-over-card button,
+  .start-overlay button {
+    padding: 12px 24px !important;
+    font-size: 1em !important;
+  }
+
+  .spaceship-buttons {
+    gap: 8px !important;
+  }
+
+  .spaceship-button {
+    padding: 6px 10px !important;
+    font-size: 0.9em !important;
+  }
+
+  .overlay-pause-button {
+    padding: 14px !important;
+  }
+
+  .pause-button,
+  .mute-button {
+    padding: 8px !important;
+  }
+
+  .menu {
+    margin-top: 8px !important;
+    margin-left: 8px !important;
+    gap: 8px !important;
+  }
+
+  .login-container input {
+    width: 100% !important;
+    font-size: 14px !important;
+  }
+
+  .login-container button {
+    font-size: 16px !important;
+    padding: 10px 20px !important;
+  }
+
+  .logout-button,
+  .leaderboard-button {
+    padding: 6px 12px !important;
+    font-size: 0.9em !important;
+  }
+
+  .wasd-button {
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+  }
+
+  .wasd-container {
+    bottom: 10px !important;
+  }
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 600px) {
+  .game-over-card,
+  .start-overlay {
+    width: 95vw !important;
+    padding: 20px 30px !important;
+  }
+
+  .game-over-card h1,
+  .start-overlay h1 {
+    font-size: 1.6em !important;
+  }
+
+  .game-over-card p,
+  .start-overlay p {
+    font-size: 0.9em !important;
+  }
+
+  .game-over-card button,
+  .start-overlay button {
+    padding: 10px 20px !important;
+    font-size: 0.9em !important;
+  }
+
+  .spaceship-button {
+    padding: 5px 8px !important;
+    font-size: 0.8em !important;
+  }
+
+  .overlay-pause-button {
+    padding: 10px !important;
+  }
+
+  .pause-button,
+  .mute-button {
+    padding: 2px !important;
+  }
+
+  .menu {
+    margin-top: 6px !important;
+    margin-left: 6px !important;
+    gap: 6px !important;
+  }
+
+  .login-container input {
+    width: 100% !important;
+    font-size: 13px !important;
+  }
+
+  .login-container button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+
+  .logout-button,
+  .leaderboard-button {
+    padding: 5px 10px !important;
+    font-size: 0.8em !important;
+  }
+
+  .wasd-button {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .wasd-container {
+    bottom: 8px !important;
+  }
 }
