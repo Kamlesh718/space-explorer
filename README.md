@@ -18,13 +18,12 @@ Fly through the stars, dodge obstacles, and challenge yourself to beat your high
 
 ---
 
-## 🖼️ Screenshots
+## 📸 Screenshots
 
-> Add your screenshots to the `screenshots/` folder and update the paths below.
+| Login | Game Start | In-Game | Pause | Game Over | Leaderboard |
+|-------|------------|---------|-------|-----------|-------------|
+| ![Login](./screenshots/login.png) | ![Start](./screenshots/start.png) | ![InGame](./screenshots/ingame.png) | ![Pause](./screenshots/pause.png) | ![GameOver](./screenshots/gameover.png) | ![Leaderboard](./screenshots/leaderboard.png) |
 
-| Game Start | In-Game | Game Over |
-|------------|---------|-----------|
-| ![Start](./screenshots/start.png) | ![Game](./screenshots/ingame.png) | ![Over](./screenshots/gameover.png) |
 
 ---
 
