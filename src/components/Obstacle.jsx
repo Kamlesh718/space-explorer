@@ -10,9 +10,9 @@ export default function Obstacle({ obstacle, texture, index }) {
         Math.random() * Math.PI,
       ]}
     >
-      <pointLight color="#ffd877" intensity={100} distance={100} />
+      <pointLight color="#ffd877" intensity={40} distance={100} />
       <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial map={texture} />
+      <meshBasicMaterial map={texture} />
     </mesh>
   );
 }

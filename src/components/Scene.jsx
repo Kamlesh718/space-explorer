@@ -1,5 +1,10 @@
 import { Canvas } from "@react-three/fiber";
-import { Html, OrbitControls, PositionalAudio } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  PositionalAudio,
+  useGLTF,
+} from "@react-three/drei";
 import { Suspense, useEffect, useRef, useState } from "react";
 import SpaceshipModel from "./SpaceshipModel";
 import Planet from "./Planet";
@@ -20,6 +25,8 @@ const SPACESHIPS = [
 ];
 
 export default function Scene() {
+  SPACESHIPS.forEach((ship) => useGLTF.preload(ship.modelPath));
+
   // --------------------------
   // 🔵 State
   // --------------------------
@@ -34,7 +41,6 @@ export default function Scene() {
     localStorage.getItem("selectedShip") || SPACESHIPS[0].modelPath
   );
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
-  const [gameLoading, setGameLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -132,17 +138,24 @@ export default function Scene() {
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} intensity={0.8} />
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <Html center>
+            <h2>Loading Scene...</h2>
+          </Html>
+        }
+      >
         <MovingStars />
       </Suspense>
 
-      {!gameOver &&
-        gameStarted &&
-        (gameLoading ? (
-          <Html center>
-            <h2>Loading...</h2>
-          </Html>
-        ) : (
+      {!gameOver && gameStarted && (
+        <Suspense
+          fallback={
+            <Html center>
+              <h2>Loading Spaceship...</h2>
+            </Html>
+          }
+        >
           <SpaceshipModel
             onGameOver={handleGameOver}
             score={score}
@@ -151,7 +164,8 @@ export default function Scene() {
             modelPath={selectedShip}
             updateHighScore={updateHighScore}
           />
-        ))}
+        </Suspense>
+      )}
 
       {/* Start Overlay */}
       {!gameStarted && (
@@ -170,8 +184,11 @@ export default function Scene() {
 
           <div className="start-overlay">
             <h1>🚀 Space Explorer</h1>
-            <p>Are you ready for an epic space adventure?</p>
-            <div className="avatar-username">
+            <p>Ready to destroy asteroids and save the galaxy? 😎</p>
+            <div
+              className="avatar-username"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               <img
                 src={avatarUrl}
                 alt={`${username} avatar`}
@@ -179,15 +196,19 @@ export default function Scene() {
                   width: "40px",
                   height: "40px",
                   borderRadius: "50%",
-                  marginRight: "15px",
+                  marginRight: "12px",
                   boxShadow: "0 0 5px #0ff",
                 }}
               />
-              <p>
-                {username?.toUpperCase()} Your High Score : {highScore}
+              <p style={{ margin: 0, fontWeight: "500" }}>
+                Hey {username?.toUpperCase()}! High score: {highScore}. Beat
+                that! 🚀
               </p>
             </div>
-            <button onClick={handleGameStart}>Start Game</button>
+
+            <button onClick={handleGameStart} style={{ marginTop: "20px" }}>
+              Let’s Go! 🚀
+            </button>
           </div>
 
           <div className="spaceship-selection">
