@@ -39,7 +39,7 @@ export default function Scene() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setGameLoading(false);
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);

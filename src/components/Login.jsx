@@ -53,6 +53,11 @@ function Login({ onLogin }) {
       return;
     }
 
+    if (password.trim().length < 8) {
+      setError("Password shoould be of 8 character");
+      return;
+    }
+
     const trimmedUsername = username.trim().toLowerCase();
     const trimmedPassword = password.trim();
     const userRef = doc(collection(db, "players"), trimmedUsername);

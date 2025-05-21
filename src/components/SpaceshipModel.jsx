@@ -112,12 +112,12 @@ function SpaceshipModel({
 
   // Returns obstacle speed and count based on score thresholds
   function getObstacleSpeedAndCount(score) {
-    if (score >= 500) return { speed: 0.6, count: 80 };
-    if (score >= 400) return { speed: 0.5, count: 70 };
-    if (score >= 300) return { speed: 0.4, count: 50 };
-    if (score >= 200) return { speed: 0.3, count: 40 };
-    if (score >= 100) return { speed: 0.2, count: 30 };
-    return { speed: 0.1, count: 15 };
+    if (score >= 500) return { speed: 0.75, count: 80 };
+    if (score >= 400) return { speed: 0.65, count: 70 };
+    if (score >= 300) return { speed: 0.55, count: 60 };
+    if (score >= 200) return { speed: 0.45, count: 50 };
+    if (score >= 100) return { speed: 0.35, count: 40 };
+    return { speed: 0.25, count: 30 };
   }
 
   // Get obstacle speed and count based on current score

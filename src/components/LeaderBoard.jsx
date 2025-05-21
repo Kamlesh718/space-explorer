@@ -29,28 +29,58 @@ export default function Leaderboard({ setShowLeaderBoard }) {
         style={{
           backgroundColor: "#000",
           color: "#0ff",
-          width: "40vw",
+          width: "90vw",
+          maxWidth: "550px",
           height: "80vh",
           padding: "20px",
           borderRadius: "12px",
           boxShadow: "0 0 5px #0ff, 0 0 3px #0ff",
           fontFamily: "'Orbitron', sans-serif",
+          // overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {setShowLeaderBoard && (
-          <button onClick={() => setShowLeaderBoard(false)}>Close</button>
+          <button
+            onClick={() => setShowLeaderBoard(false)}
+            style={{
+              backgroundColor: "#0ff",
+              color: "#000",
+              border: "none",
+              borderRadius: "8px",
+              padding: "8px 12px",
+              cursor: "pointer",
+              fontWeight: "bold",
+              marginBottom: "10px",
+              alignSelf: "flex-end",
+            }}
+          >
+            Close
+          </button>
         )}
+
         <h2
           style={{
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "10px",
             textShadow: "0 0 10px #0ff",
             letterSpacing: "2px",
           }}
         >
           Top Scorers
         </h2>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+
+        <ul
+          style={{
+            listStyle: "none",
+            padding: "12px",
+            margin: 0,
+            overflowY: "auto",
+            overflowX: "hidden",
+            flexGrow: 1,
+          }}
+        >
           {players.map(({ username, highScore, avatarUrl }, i) => (
             <li
               key={username}
@@ -62,7 +92,6 @@ export default function Leaderboard({ setShowLeaderBoard }) {
                 backgroundColor: "rgba(0, 255, 255, 0.1)",
                 borderRadius: "8px",
                 boxShadow: i === 0 ? "0 0 10px 2px #0ff" : "none",
-                cursor: "default",
                 transition: "transform 0.3s ease",
               }}
               onMouseEnter={(e) =>
@@ -81,6 +110,7 @@ export default function Leaderboard({ setShowLeaderBoard }) {
                   borderRadius: "50%",
                   marginRight: "15px",
                   boxShadow: "0 0 5px #0ff",
+                  flexShrink: 0,
                 }}
               />
               <div
